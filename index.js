@@ -21,7 +21,15 @@ const users = [
 ];
 
 app.get('/users', (req, res) => {
-    res.send(users)
+    if (req.query.name) {
+        const search = req.query.name.toLowerCase();
+        const matched = users.filter(user => user.name.toLowerCase().includes(search));
+        res.send(matched);
+    }
+    else {
+        res.send(users);
+    }
+    console.log('queries', req.query);
 })
 
 app.get('/users/:id', (req, res) => {
